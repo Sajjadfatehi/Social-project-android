@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="comment"
+            type="com.example.nattramn.features.article.ui.CommentView" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/commentCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/comment_bottom_margin"
+        android:background="@color/whiteBackground"
+        android:layoutDirection="rtl"
+        app:cardCornerRadius="@dimen/radius_normal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteBackground">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/itemCommentImage"
+                imageSource="@{comment.image}"
+                android:layout_width="@dimen/global_item_image_size"
+                android:layout_height="@dimen/global_item_image_size"
+                android:layout_margin="@dimen/margin_normal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/itemCommentName"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="@{comment.username}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/itemCommentImage"
+                app:layout_constraintStart_toEndOf="@id/itemCommentImage"
+                app:layout_constraintTop_toTopOf="@id/itemCommentImage" />
+
+            <TextView
+                android:id="@+id/itemCommentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/comment_text_margin_top"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:lineSpacingExtra="@dimen/spacing_large"
+                android:maxLines="2"
+                android:text="@{comment.body}"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_small"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/itemCommentImage" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

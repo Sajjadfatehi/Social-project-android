@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteGlobalBackground"
+            tools:context=".features.home.ui.fragments.ForYouFragment">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                android:background="@drawable/shape_search_field"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="@dimen/home_search_icon_padding"
+                android:gravity="start"
+                android:hint="@string/homeSearchHint"
+                android:inputType="text"
+                android:maxLines="1"
+                android:padding="@dimen/padding_normal"
+                android:textSize="@dimen/text_size_b2"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/feedGif"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/recyclerHomeArticle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/recyclerHomeArticle"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/box_empty" />
+
+            <TextView
+                android:id="@+id/gifSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:text="@string/noArticles"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/feedGif"
+                app:layout_constraintStart_toStartOf="@id/feedGif"
+                app:layout_constraintTop_toBottomOf="@id/feedGif" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHomeArticle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_micro"
+                app:layout_constraintBottom_toTopOf="@+id/topArticlesTextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputSearch"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/vertical_article_row" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerSearchArticle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_micro"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputSearch"
+                app:layout_constraintVertical_bias="0"
+                tools:listitem="@layout/vertical_article_row" />
+
+            <TextView
+                android:id="@+id/topArticlesTextView"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_micro"
+                android:text="@string/latestArticles"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_b1"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerHomeTopArticles"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerHomeArticle"
+                app:layout_constraintVertical_bias="1" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHomeTopArticles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:clipToPadding="false"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_small"
+                android:paddingEnd="@dimen/padding_very_large"
+                android:paddingBottom="@dimen/padding_small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:listitem="@layout/horizontal_article_row" />
+
+            <ProgressBar
+                android:id="@+id/forYouFeedProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerHomeArticle"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerHomeArticle"
+                app:layout_constraintStart_toStartOf="@+id/recyclerHomeArticle"
+                app:layout_constraintTop_toTopOf="@+id/recyclerHomeArticle" />
+
+            <ProgressBar
+                android:id="@+id/forYouLatestArticlesProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/recyclerHomeTopArticles"
+                app:layout_constraintEnd_toEndOf="@+id/recyclerHomeTopArticles"
+                app:layout_constraintStart_toStartOf="@+id/recyclerHomeTopArticles"
+                app:layout_constraintTop_toTopOf="@+id/recyclerHomeTopArticles" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</layout>

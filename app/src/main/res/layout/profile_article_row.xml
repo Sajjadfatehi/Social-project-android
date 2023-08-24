@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="profileData"
+            type="com.example.nattramn.features.article.ui.ArticleView" />
+
+        <variable
+            name="likes"
+            type="String" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/profileArticleCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/profile_article_row_layout_margin_bottom"
+        android:background="@color/whiteBackground"
+        android:elevation="@dimen/elevation"
+        android:layoutDirection="rtl"
+        app:cardCornerRadius="@dimen/radius_normal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/padding_small">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/itemArticleAuthorImage"
+                imageSource="@{profileData.userView.image}"
+                android:layout_width="@dimen/global_item_image_size"
+                android:layout_height="@dimen/global_item_image_size"
+                android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
+                android:layout_marginTop="@dimen/profile_article_row_horizontal_margin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/itemArticleAuthorName"
+                style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_micro"
+                android:text="@{profileData.userView.name}"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/itemArticleDate"
+                app:layout_constraintStart_toEndOf="@+id/itemArticleAuthorImage"
+                app:layout_constraintTop_toTopOf="@+id/itemArticleAuthorImage" />
+
+            <TextView
+                android:id="@+id/itemArticleDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_micro"
+                android:textColor="@color/hint"
+                android:textStyle="bold"
+                app:convertDate="@{profileData.date}"
+                app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
+                app:layout_constraintStart_toEndOf="@+id/itemArticleAuthorImage"
+                app:layout_constraintTop_toBottomOf="@+id/itemArticleAuthorName" />
+
+            <ImageButton
+                android:id="@+id/itemArticleOptions"
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/profile_article_row_horizontal_margin"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@null"
+                android:focusable="true"
+                android:src="@drawable/ic_more"
+                app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
+
+            <ImageButton
+                android:id="@+id/itemArticleBookmark"
+                style="@style/Widget.AppCompat.ActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:contentDescription="@null"
+                android:focusable="true"
+                android:src='@{profileData.bookmarked ? @drawable/ic_bookmark_checked : @drawable/ic_bookmark}'
+                app:layout_constraintBottom_toBottomOf="@id/itemArticleAuthorImage"
+                app:layout_constraintEnd_toStartOf="@+id/itemArticleOptions"
+                app:layout_constraintTop_toTopOf="@id/itemArticleAuthorImage" />
+
+            <TextView
+                android:id="@+id/itemArticleTitle"
+                persianText="@{profileData.title}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
+                android:letterSpacing=".02"
+                android:lineSpacingExtra="@dimen/spacing_micro"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_h3"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/itemArticleAuthorImage" />
+
+            <TextView
+                android:id="@+id/itemArticleDescription"
+                persianText="@{profileData.body}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
+                android:layout_marginTop="@dimen/profile_article_row_body_margin_top"
+                android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
+                android:lineSpacingExtra="7sp"
+                android:maxLines="3"
+                android:padding="@dimen/padding_normal"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_b1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/itemArticleTitle" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/itemCommentsButton"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                persianText='@{profileData.commentsNumber + "  دیدگاه"}'
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/profile_article_row_horizontal_margin"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:background="@android:color/transparent"
+                android:clickable="false"
+                android:gravity="center"
+                android:textColor="@color/hint"
+                app:icon="@drawable/ic_comment"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/profile_article_row_icon_padding"
+                app:iconTint="@color/hint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/itemLikesIcon" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/itemLikesIcon"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                persianText="@{likes}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/profile_article_row_horizontal_margin"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:background="@android:color/transparent"
+                android:checkable="false"
+                android:clickable="false"
+                android:gravity="center"
+                android:textColor="@color/hint"
+                app:icon="@drawable/ic_like"
+                app:iconGravity="textStart"
+                app:iconPadding="@dimen/profile_article_row_icon_padding"
+                app:iconTint="@color/hint"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/itemArticleDescription" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="articleView"
+            type="com.example.nattramn.features.article.ui.ArticleView" />
+
+        <variable
+            name="viewModel"
+            type="com.example.nattramn.features.article.ui.viewmodels.ArticleViewModel" />
+
+        <variable
+            name="status"
+            type="com.example.nattramn.core.resource.Status" />
+
+        <variable
+            name="liked"
+            type="Boolean" />
+
+        <variable
+            name="isBookmarked"
+            type="Boolean" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="rtl">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:contentInsetStart="@dimen/toolbar_inset_start">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/articleFragAppbarTitle"
+                    android:textColor="@color/whiteBackground"
+                    android:textSize="@dimen/text_size_b1"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/articleBookmark"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/article_toolbar_buttons_margin"
+                    app:isBookmarked="@{isBookmarked}"
+                    tools:ignore="ContentDescription" />
+
+                <ImageButton
+                    android:id="@+id/articleRightArrow"
+                    style="@style/Widget.AppCompat.ActionButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/article_toolbar_buttons_margin"
+                    android:src="@drawable/ic_arrow_right"
+                    tools:ignore="ContentDescription" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteGlobalBackground"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="rtl">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardArticleSA"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:background="@color/whiteBackground"
+                    android:elevation="@dimen/elevation"
+                    android:layoutDirection="rtl"
+                    app:cardCornerRadius="@dimen/radius_normal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/padding_small">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/authorImageSA"
+                            imageSource="@{articleView.userView.image}"
+                            android:layout_width="@dimen/global_item_image_size"
+                            android:layout_height="@dimen/global_item_image_size"
+                            android:layout_marginStart="@dimen/margin_ten"
+                            android:layout_marginTop="@dimen/margin_ten"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/authorNameSA"
+                            style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_micro"
+                            android:text="@{articleView.userView.name}"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toTopOf="@+id/dateSA"
+                            app:layout_constraintStart_toEndOf="@+id/authorImageSA"
+                            app:layout_constraintTop_toTopOf="@+id/authorImageSA" />
+
+                        <TextView
+                            android:id="@+id/dateSA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_micro"
+                            android:textColor="@color/hint"
+                            android:textStyle="bold"
+                            app:convertDate="@{articleView.date}"
+                            app:layout_constraintBottom_toBottomOf="@id/authorImageSA"
+                            app:layout_constraintStart_toEndOf="@+id/authorImageSA"
+                            app:layout_constraintTop_toBottomOf="@+id/authorNameSA" />
+
+                        <ImageButton
+                            android:id="@+id/shareArticleSA"
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/margin_ten"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_share"
+                            app:layout_constraintBottom_toBottomOf="@id/authorImageSA"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/authorImageSA" />
+
+                        <ImageButton
+                            android:id="@+id/likeArticleButton"
+                            style="@style/Widget.AppCompat.ActionButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:contentDescription="@null"
+                            app:layout_constraintBottom_toBottomOf="@id/authorImageSA"
+                            app:layout_constraintEnd_toStartOf="@+id/shareArticleSA"
+                            app:layout_constraintTop_toTopOf="@id/authorImageSA"
+                            app:setLikeIcon="@{liked}" />
+
+                        <TextView
+                            android:id="@+id/articleTitleSA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_ten"
+                            android:layout_marginTop="@dimen/margin_normal"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:letterSpacing=".02"
+                            android:lineSpacingExtra="@dimen/spacing_micro"
+                            android:text="@{articleView.title}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_h3"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/authorImageSA" />
+
+                        <TextView
+                            android:id="@+id/articleDescriptionSA"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin_ten"
+                            android:layout_marginTop="@dimen/article_body_margin_top"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:lineSpacingExtra="@dimen/spacing_normal"
+                            android:padding="10dp"
+                            android:text="@{articleView.body}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_b1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/articleTitleSA" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/keywordsTextSA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/article_margin_top_normal"
+                    android:text="@string/keywordsSA"
+                    android:textColor="@color/hint"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardArticleSA" />
+
+                <HorizontalScrollView
+                    android:id="@+id/chipGroupFrameSA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:layoutDirection="rtl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/keywordsTextSA">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupSA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                    </com.google.android.material.chip.ChipGroup>
+
+                </HorizontalScrollView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/articleCommentButton"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/article_margin_top_normal"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:gravity="center"
+                    android:padding="@dimen/padding_large"
+                    android:text="@string/addComment"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/radius_normal"
+                    app:icon="@drawable/ic_send"
+                    app:iconGravity="textStart"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chipGroupFrameSA" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/relatedArticlesText"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/article_margin_top_normal"
+                    android:text="@string/relatedArticlesSA"
+                    android:textColor="@color/absoluteBlack"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/articleCommentButton" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerArticleRelated"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/article_margin_top_micro"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_small"
+                    android:paddingEnd="@dimen/padding_very_large"
+                    android:paddingBottom="@dimen/padding_small"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/relatedArticlesText"
+                    tools:listitem="@layout/horizontal_article_row" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/commentsTitleSA"
+                    style="@style/MaterialAlertDialog.MaterialComponents.Title.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/article_margin_top_normal"
+                    android:text="@string/commentsTitle"
+                    android:textColor="@color/absoluteBlack"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recyclerArticleRelated" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerArticleComments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_micro"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:layout_marginBottom="@dimen/margin_micro"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/commentsTitleSA"
+                    tools:listitem="@layout/comment_row" />
+
+                <ProgressBar
+                    android:id="@+id/progressSuggestions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_ten"
+                    app:layout_constraintBottom_toBottomOf="@id/recyclerArticleRelated"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerArticleRelated" />
+
+                <ProgressBar
+                    android:id="@+id/progressComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/recyclerArticleComments" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

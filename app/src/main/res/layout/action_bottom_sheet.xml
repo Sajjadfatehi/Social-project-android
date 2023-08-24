@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shareArticleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/action_twenty"
+            android:layout_marginEnd="@dimen/action_twenty"
+            android:padding="@dimen/action_button_padding"
+            android:text="@string/shareArticle"
+            app:backgroundTint="@color/hint"
+            app:cornerRadius="@dimen/radius_normal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/editArticleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/action_twenty"
+            android:layout_marginEnd="@dimen/action_twenty"
+            android:padding="@dimen/action_button_padding"
+            android:text="@string/EditArticle"
+            app:backgroundTint="@color/blueFollow"
+            app:cornerRadius="@dimen/radius_normal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/deleteArticleButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/action_twenty"
+            android:layout_marginEnd="@dimen/action_twenty"
+            android:padding="@dimen/action_button_padding"
+            android:text="@string/DeleteArticle"
+            app:backgroundTint="@color/redButton"
+            app:cornerRadius="@dimen/radius_normal" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</layout>
